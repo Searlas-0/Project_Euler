@@ -1,42 +1,20 @@
-def smallest_multiple(x):
-    divisors = [i for i in range(x,0,-1)]
-    removed = []
-    f = []
-    total = 1
-    for n in divisors:
-        temp = []
-        factors = find_factors(n)
-        for numb in factors:
-            if numb not in f:
-                temp.append(numb)
-                print(temp,'temp')
-        f += temp
-        print(f,'f')
-    print(f)
-    for i in f:
-        total *= i
-    print(total)
-    return total
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-def find_factors(n):
-    factors = []
-    for i in range(2, int(n/2)):
-        if n % i == 0:
-            factors.append(i)
-            d = int(n / i)
-            factors.append(d)
-    if factors == []:
-        factors = [n]
-    print(f'factors={factors}')
-    return factors
-            
+from algorithms.primes import sieve_of_eratosthenes as primes
+import math
 
+def smallest_multiple(n):
+    p = primes(n) 
+    lcm = 1
+    for i in p:
+        e = math.floor(math.log(n)/math.log(i))
+        lcm *= i**e
+    return lcm
 
-
-
-
-
-
-
-smallest_multiple(20)
+if __name__ == '__main__':
+    n = int(input("Please choose an integer:"))
+    print(smallest_multiple(n))
+     
