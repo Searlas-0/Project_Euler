@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def sieve_of_eratosthenes(n):
     sieve = np.ones(n + 1, dtype=bool)
@@ -11,3 +12,15 @@ def sieve_of_eratosthenes(n):
         if sieve[i]:
             primes.append(i)
     return primes
+
+def nth_prime(n):
+    if n < 7:
+        upper = 14
+    else:
+        upper = math.ceil(n * (math.log(n) + math.log(math.log(n))))
+
+    primes = sieve_of_eratosthenes(upper)
+    return primes[n-1]
+
+
+    
